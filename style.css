@@ -1,0 +1,511 @@
+/* ============================================
+   Синяя пастельная тема — полностью переработано
+   ============================================ */
+:root {
+    --primary: #4a7cbb;
+    --primary-dark: #3a6395;
+    --primary-light: #eef4fc;
+    --bg-page: #eef2f7;
+    --bg-container: #ffffff;
+    --text-dark: #2c3e50;
+    --text-light: #5c6f87;
+    --border-light: #d4dee8;
+    --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.03);
+    --error-bg: #ffe8e8;
+    --error-text: #bc5a5a;
+    --success-bg: #e3f5ec;
+    --success-text: #2e7d64;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    background: var(--bg-page);
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== Шапка сайта (отдельно) ===== */
+.site-header {
+    background: var(--bg-container);
+    border-bottom: 1px solid var(--border-light);
+    padding: 1rem 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.header-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.logo {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.header-nav a {
+    margin-left: 1.5rem;
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.header-nav a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.user-name {
+    margin-left: 1.5rem;
+    background: var(--primary-light);
+    padding: 0.3rem 0.8rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    color: var(--primary-dark);
+}
+
+/* ===== Основное содержимое ===== */
+.site-main {
+    flex: 1;
+    max-width: 1280px;
+    width: 90%;
+    margin: 2rem auto;
+    background: var(--bg-container);
+    border-radius: 20px;
+    padding: 1.8rem;
+    box-shadow: var(--shadow-sm);
+}
+
+/* ===== Подвал ===== */
+.site-footer {
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--bg-container);
+    border-top: 1px solid var(--border-light);
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+/* ===== Заголовки внутри main ===== */
+h1, h2 {
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.3px;
+}
+
+h1 {
+    font-size: 1.9rem;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.5rem;
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+}
+
+/* ===== Компактные формы (login, register) ===== */
+.form-compact {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+    background: var(--bg-container);
+    padding: 1.5rem;
+    border-radius: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.form-compact label {
+    display: block;
+    margin: 0.8rem 0 0.3rem;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.form-compact input,
+.form-compact select {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--border-light);
+    border-radius: 40px;
+    background: white;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.form-compact input:focus,
+.form-compact select:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 124, 187, 0.2);
+}
+
+.form-compact button {
+    width: 100%;
+    margin-top: 1.2rem;
+    background: var(--primary);
+    border: none;
+    padding: 0.75rem;
+    border-radius: 40px;
+    font-weight: 600;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.form-compact button:hover:not(:disabled) {
+    background: var(--primary-dark);
+}
+
+.form-compact button:disabled {
+    background: var(--border-light);
+    cursor: not-allowed;
+}
+
+/* ===== Карточки для форм в админке ===== */
+.form-card {
+    background: var(--bg-container);
+    padding: 1.5rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+    margin: 1rem 0;
+}
+
+/* ===== Кнопки и ссылки (без смайликов) ===== */
+button, .button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+button.small {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.actions a {
+    margin-right: 1rem;
+}
+
+/* ===== Таблицы ===== */
+.table-wrapper {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+th, td {
+    padding: 0.9rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-light);
+}
+
+th {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+
+tr:hover {
+    background: #f8fafd;
+}
+
+/* ===== Блоки ошибок и успеха ===== */
+.error, .success {
+    padding: 0.8rem 1.2rem;
+    border-radius: 60px;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.error {
+    background: var(--error-bg);
+    color: var(--error-text);
+    border-left: 4px solid var(--error-text);
+}
+
+.success {
+    background: var(--success-bg);
+    color: var(--success-text);
+    border-left: 4px solid var(--success-text);
+}
+
+/* ===== Капча ===== */
+.captcha-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+.captcha-img {
+    width: 100%;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: 0.1s;
+}
+
+.captcha-img.selected {
+    border-color: var(--primary);
+    background: var(--primary-light);
+}
+
+.captcha-controls {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+#captchaError {
+    font-size: 0.8rem;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+/* ===== Вспомогательные классы ===== */
+.text-center {
+    text-align: center;
+}
+
+.mt-1 {
+    margin-top: 1rem;
+}
+
+.mb-1 {
+    margin-bottom: 1rem;
+}
+
+.my-1 {
+    margin: 1rem 0;
+}
+
+.customer-div {
+    display: none;
+}
+
+.customer-div.visible {
+    display: block;
+    margin-top: 0.5rem;
+}
+
+/* ===== Стили для страницы валидации (transfer_true.php) ===== */
+/* Переопределение Bootstrap-классов под пастельную синюю тему */
+.bg-dark {
+    background-color: var(--bg-page) !important;
+}
+.text-light, .text-white {
+    color: var(--text-dark) !important;
+}
+.bg-secondary {
+    background-color: var(--bg-container) !important;
+}
+.card {
+    background: var(--bg-container);
+    border: none;
+    border-radius: 24px;
+    box-shadow: var(--shadow-sm);
+}
+.card-header {
+    background: var(--primary-light) !important;
+    color: var(--primary-dark) !important;
+    border-bottom: 1px solid var(--border-light);
+    padding: 1rem 1.5rem;
+}
+.card-header h3 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+.card-body {
+    padding: 1.8rem;
+}
+.form-select, .form-control {
+    background-color: white;
+    border: 1px solid var(--border-light);
+    border-radius: 40px;
+    padding: 0.7rem 1rem;
+    color: var(--text-dark);
+    transition: all 0.2s ease;
+}
+.form-select:focus, .form-control:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 124, 187, 0.2);
+}
+.btn {
+    border-radius: 40px;
+    padding: 0.7rem 1.2rem;
+    font-weight: 600;
+    border: none;
+    transition: background 0.2s;
+}
+.btn-success {
+    background-color: var(--primary);
+    color: white;
+}
+.btn-success:hover {
+    background-color: var(--primary-dark);
+}
+.btn-lg {
+    font-size: 1rem;
+}
+.alert {
+    border-radius: 20px;
+    border: none;
+    padding: 1rem 1.2rem;
+}
+.alert-success {
+    background-color: var(--success-bg);
+    color: var(--success-text);
+    border-left: 4px solid var(--success-text);
+}
+.alert-danger {
+    background-color: var(--error-bg);
+    color: var(--error-text);
+    border-left: 4px solid var(--error-text);
+}
+.alert-warning {
+    background-color: #fff3e0;
+    color: #b45f06;
+    border-left: 4px solid #b45f06;
+}
+.alert .fs-1 {
+    font-size: 1.8rem;
+    margin-right: 0.8rem;
+}
+.alert h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+hr.border-secondary {
+    border-color: var(--border-light) !important;
+    margin: 1.5rem 0;
+}
+.text-muted {
+    color: var(--text-light) !important;
+}
+.fw-mono {
+    font-family: 'Courier New', monospace;
+}
+.bg-black {
+    background: var(--text-dark) !important;
+    color: #f4a460 !important;
+}
+.rounded {
+    border-radius: 12px !important;
+}
+.d-inline-block {
+    display: inline-block;
+}
+/* Центрирование контейнера */
+.container.mt-5 {
+    margin-top: 2rem !important;
+}
+.row.justify-content-center {
+    display: flex;
+    justify-content: center;
+}
+.col-md-7 {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.alert-success::before {
+    content: "✓";
+    font-weight: bold;
+    margin-right: 0.8rem;
+    font-size: 1.2rem;
+}
+.alert-danger::before {
+    content: "✗";
+    font-weight: bold;
+    margin-right: 0.8rem;
+    font-size: 1.2rem;
+}
+
+.button {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+.button:hover {
+    background-color: #0056b3;
+}
+
+.test-accounts {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+.test-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 10px 0;
+}
+.test-table th, .test-table td {
+    border: 1px solid #ddd;
+    padding: 6px 8px;
+    text-align: left;
+}
+.test-table th {
+    background-color: #f2f2f2;
+}
+.note {
+    font-size: 12px;
+    color: #856404;
+    background: #fff3cd;
+    padding: 5px;
+    border-radius: 4px;
+}

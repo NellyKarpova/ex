@@ -1,0 +1,127 @@
+Вот полная, пошаговая инструкция по развертыванию всего проекта с нуля на **РЕД ОС**.
+
+Она настроена так, что после один раз выполненной установки и Java-симулятор, и веб-интерфейс на PHP будут **запускаться автоматически** при включении компьютера. Вам больше не придется открывать терминал и вводить команды вручную.
+
+---
+
+## ИНСТРУКЦИЯ ПО РАЗВЕРТЫВАНИЮ СИСТЕМЫ ВАЛИДАЦИИ
+
+### Шаг 1. Подготовка папок и файлов
+
+Для порядка соберем все файлы в одном месте — в домашней директории пользователя `student`.
+
+1. Откройте терминал и создайте папку для веб-интерфейса:
+
+sudo dnf install java-21-openjdk -y
+
+mkdir -p /home/student/transfer
+
+
+
+2. Перенесите ваш файл `TransferSimulator.jar` в папку `/home/student/Документы/transfer/` (если он еще не там).
+
+
+### Шаг 2. Настройка автозапуска Java-симулятора
+
+Настроим фоновую службу для Java-приложения, чтобы оно работало на порту `4444`.
+
+1. Создайте файл конфигурации службы:
+
+sudo nano /etc/systemd/system/transfersim.service
+
+
+
+2. Вставьте в него следующие настройки:
+
+[Unit]
+Description=Transfer Simulator API Service
+After=network.target
+
+[Service]
+User=student
+WorkingDirectory=/home/student/Документы
+ExecStart=/usr/lib/jvm/java-21-openjdk-21.0.7.0.6-1.red80.x86_64/bin/java -jar /home/student/Документы/transfer/TransferSimulator.jar
+SuccessExitStatus=143
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+3. Сохраните и закройте файл (`Ctrl + O`, `Enter`, `Ctrl + X`).
+
+---
+
+### Шаг 3. Настройка автозапуска PHP-интерфейса
+
+Теперь сделаем такую же фоновую службу для PHP, чтобы встроенный сервер автоматически поднимался на порту `8000`.
+
+1. Создайте файл конфигурации службы для PHP:
+
+sudo nano /etc/systemd/system/php-validator.service
+
+
+2. Вставьте в него следующие настройки:
+
+[Unit]
+Description=PHP Validator Web Interface
+After=network.target
+
+[Service]
+User=student
+WorkingDirectory=/home/student/TransferValidator
+ExecStart=/usr/bin/php -S localhost:8000
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
+
+3. Сохраните и закройте файл (`Ctrl + O`, `Enter`, `Ctrl + X`).
+
+
+
+### Шаг 4. Активация и запуск служб
+
+Осталось приказать операционной системе РЕД ОС включить обе службы в автозагрузку и запустить их прямо сейчас.
+
+Выполните в терминале эти команды:
+
+
+# Перезагружаем менеджер служб, чтобы он увидел новые файлы
+sudo systemctl daemon-reload
+
+# Включаем автозапуск при включении ПК для обеих служб
+sudo systemctl enable transfersim.service
+sudo systemctl enable php-validator.service
+
+# Запускаем обе службы прямо сейчас
+sudo systemctl start transfersim.service
+sudo systemctl start php-validator.service
+
+
+### Шаг 5. Проверка работы
+
+Всё готово! Терминал можно закрывать.
+
+1. Откройте любой браузер.
+2. Перейдите по адресу: **`http://localhost:8000`**
+3. Перед вами откроется графический интерфейс. Выберите тип данных (например, СНИЛС или Паспорт) и нажмите **«Сгенерировать и Проверить»**.
+
+Система сама в фоне отправит запрос к Java-симулятору, получит ответ, проверит регулярными выражениями PHP и выдаст вам вердикт на экране. После перезагрузки компьютера всё продолжит работать само.
+
+
+### 🛠️ Шпаргалка: Как этим управлять в будущем?
+
+Если вам понадобится остановить или перезапустить сервисы, используйте стандартные команды:
+
+* **Проверить статус (работает ли):**
+`sudo systemctl status transfersim` (для Java)
+`sudo systemctl status php-validator` (для PHP)
+* **Перезапустить (если что-то зависло):**
+`sudo systemctl restart transfersim php-validator`
+* **Остановить:**
+`sudo systemctl stop transfersim php-validator`
